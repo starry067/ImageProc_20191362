@@ -80,6 +80,19 @@ public:
 	afx_msg void OnGeometryRotation();
 	afx_msg void OnGeometryHolizantalFlip();
 	afx_msg void OnGeometryVerticalClip();
+	afx_msg void OnGeometryWarping();
+//	afx_msg void OnGeometryMorphing();
+//	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnAviView();
+//	int LoadAviFile();
+	bool bAviMode;
+	CString AviFileName;
+	void LoadAviFile(CDC* pDC);
+	afx_msg void OnOpencv();
+	afx_msg void OnGeometryMorphing();
+	void LoadTwoImage2();
 };
 
 #ifndef _DEBUG  // ImageProc_20191362View.cpp의 디버그 버전

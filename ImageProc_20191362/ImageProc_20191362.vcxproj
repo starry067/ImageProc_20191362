@@ -79,6 +79,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\opencv\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -115,9 +117,11 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>vfw32.lib;opencv_world480d.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -185,6 +189,7 @@
   <ItemGroup>
     <ClInclude Include="CAngleDlg.h" />
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="COpenCVDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ImageProc_20191362.h" />
     <ClInclude Include="ImageProc_20191362Doc.h" />
@@ -198,6 +203,7 @@
     <ClCompile Include="AngleDlg.cpp" />
     <ClCompile Include="CANGLEDLG.CPP" />
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="COpenCVDlg.cpp" />
     <ClCompile Include="ImageProc_20191362.cpp" />
     <ClCompile Include="ImageProc_20191362Doc.cpp" />
     <ClCompile Include="ImageProc_20191362View.cpp" />

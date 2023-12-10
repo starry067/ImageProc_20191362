@@ -1,5 +1,4 @@
-﻿
-// ImageProc_20191362Doc.cpp: CImageProc20191362Doc 클래스의 구현
+﻿﻿// ImageProc_20191362Doc.cpp: CImageProc20191362Doc 클래스의 구현
 //
 
 #include "pch.h"
@@ -85,7 +84,7 @@ void CImageProc20191362Doc::Serialize(CArchive& ar)	// 선택한 변수에 대�
 {
 	if (ar.IsStoring() == TRUE)
 	{
-		
+
 	}
 	else
 	{
@@ -104,7 +103,7 @@ void CImageProc20191362Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 	CString strText = _T("TODO: implement thumbnail drawing here");
 	LOGFONT lf;
 
-	CFont* pDefaultGUIFont = CFont::FromHandle((HFONT) GetStockObject(DEFAULT_GUI_FONT));
+	CFont* pDefaultGUIFont = CFont::FromHandle((HFONT)GetStockObject(DEFAULT_GUI_FONT));
 	pDefaultGUIFont->GetLogFont(&lf);
 	lf.lfHeight = 36;
 
@@ -135,7 +134,7 @@ void CImageProc20191362Doc::SetSearchContent(const CString& value)
 	}
 	else
 	{
-		CMFCFilterChunkValueImpl *pChunk = nullptr;
+		CMFCFilterChunkValueImpl* pChunk = nullptr;
 		ATLTRY(pChunk = new CMFCFilterChunkValueImpl);
 		if (pChunk != nullptr)
 		{
@@ -172,7 +171,7 @@ void CImageProc20191362Doc::LoadImageFile(CArchive& ar)
 	CFile* fp = ar.GetFile();// 파일에 대한 정보 읽어옴
 	CString fname = fp->GetFilePath();	// 문자열 저장
 	bool isbmp = false;	// 나머지 포맷은 false, bmp 포멧은 true
-	
+
 	if (strcmp(strrchr(fname, '.'), ".ppm") == 0 || strcmp(strrchr(fname, '.'), ".PPM") == 0 ||
 		strcmp(strrchr(fname, '.'), ".pgm") == 0 || strcmp(strrchr(fname, '.'), ".PGM") == 0)
 	{
@@ -210,11 +209,11 @@ void CImageProc20191362Doc::LoadImageFile(CArchive& ar)
 			ar.Read(palette, 256 * 4);
 		}
 		// 실제 데이터 읽어서 메모리 할당
-		
+
 		isbmp = true;
 
 	}
-	else if (strcmp(strrchr(fname, '.'), ".raw") == 0 || strcmp(strrchr(fname, '.'), ".RAW") == 0) 
+	else if (strcmp(strrchr(fname, '.'), ".raw") == 0 || strcmp(strrchr(fname, '.'), ".RAW") == 0)
 	{
 		if (fp->GetLength() != 256 * 256)
 		{
@@ -230,29 +229,29 @@ void CImageProc20191362Doc::LoadImageFile(CArchive& ar)
 	InputImg = (unsigned char**)malloc(ImageHeight * sizeof(unsigned char*));
 	resultImg = (unsigned char**)malloc(ImageHeight * sizeof(unsigned char*));
 
-	for (int i = 0; i < ImageHeight; i++) 
+	for (int i = 0; i < ImageHeight; i++)
 	{
 		InputImg[i] = (unsigned char*)malloc(ImageWidth * depth);
 		resultImg[i] = (unsigned char*)malloc(ImageWidth * depth);
 	}
 
 	// 영상데이터 읽기
-	if (!isbmp) 
+	if (!isbmp)
 	{
-		for (int i = 0; i < ImageHeight; i++) 
+		for (int i = 0; i < ImageHeight; i++)
 			ar.Read(InputImg[i], ImageWidth * depth);
-		
+
 	}
 	else
 	{
 		// 파일에서 읽어서 저장
-		BYTE nu[4*3]; // 캐릭터에 unsigned char 의미
+		BYTE nu[4 * 3]; // 캐릭터에 unsigned char 의미
 		int widthfile;
 		widthfile = (ImageWidth * 8 + 32) / 32 * 4;		// 104
 		for (int j = 0; j < ImageHeight; j++) // 세로
 		{
-			if(depth == 1)
-				ar.Read(InputImg[ImageHeight -1 - j], ImageWidth * depth);// -1-i : 메모리 영역 제거 + 제일마지막위치 거꾸로함.
+			if (depth == 1)
+				ar.Read(InputImg[ImageHeight - 1 - j], ImageWidth * depth);// -1-i : 메모리 영역 제거 + 제일마지막위치 거꾸로함.
 			else
 			{
 				for (int i = 0; i < ImageWidth; i++)  // 가로
@@ -272,7 +271,7 @@ void CImageProc20191362Doc::LoadImageFile(CArchive& ar)
 			// 이대로 하면 이미지가 뒤집어주니 이미지 조정 필요
 		}
 	}
-	
+
 }
 
 
@@ -301,7 +300,7 @@ void CImageProc20191362Doc::LoadSecondImageFile(CArchive& ar) {
 		if (strcmp(type, "P5") == 0)		imgd = 1;
 		else								imgd = 3;
 	}
-	
+
 	else if (strcmp(strrchr(fname, '.'), ".raw") == 0 || strcmp(strrchr(fname, '.'), ".RAW") == 0)
 	{
 		if (fp->GetLength() != 256 * 256)
@@ -338,7 +337,7 @@ void CImageProc20191362Doc::LoadSecondImageFile(CArchive& ar) {
 		isbmp = true;
 
 	}
-	
+
 	if (imgw != ImageWidth || imgh != ImageHeight || imgd != depth)
 	{
 		AfxMessageBox("동일한 크기의 화일만 읽어들일 수 있습니다.");
