@@ -182,6 +182,17 @@ void CImageProc20191362View::OnDraw(CDC* pDC)
 			}
 		}
 	}
+	for (int i = 0; i < 10; i++) {
+		if (pDoc->morphedImg[i] != NULL) {
+
+			for (int y = 0; y < pDoc->ImageHeight; y++)       // 모핑 결과 출력 
+				for (int x = 0; x < pDoc->ImageWidth; x++)
+					pDC->SetPixel(x + 20 + pDoc->ImageWidth, y,
+						RGB(pDoc->morphedImg[i][y][x],
+							pDoc->morphedImg[i][y][x],
+							pDoc->morphedImg[i][y][x]));
+		}
+	}
 
 }
 
@@ -511,26 +522,30 @@ void CImageProc20191362View::LoadTwoImage()
 	CFileDialog dlg(TRUE);
 	CFile file;
 
-	if (dlg.DoModal() == IDOK) {   // DoModal 호출하면 뜸 // IDOK = 확인 // IDCANCEL == 취소
+	if (dlg.DoModal() == IDOK) {	// DoModal 호출하면 뜸 // IDOK = 확인 // IDCANCEL == 취소
 
 		file.Open(dlg.GetPathName(), CFile::modeRead); // 파일 열어서 읽기모드
 		CArchive ar(&file, CArchive::load);
 		ar.Read(pDoc->InputImg2, 256 * 256);
-		//file.Read(pDoc->inputImg2, 256 * 256);         // 파일 읽어서 inputImage2에 삽입
-		file.Close();                           // 파일 닫기
+		//file.Read(pDoc->inputImg2, 256 * 256);			// 파일 읽어서 inputImage2에 삽입
+		file.Close();									// 파일 닫기
 
 		int x, y;
 		for (y = 0; y < 256; y++) {
 			for (x = 0; x < 256; x++) {
-				pDoc->resultImg[y][x] = pDoc->InputImg[y][x];   // 결과 이미지를 초기화
+				pDoc->resultImg[y][x] = pDoc->InputImg[y][x];	// 결과 이미지를 초기화
 			}
 		}
 		Invalidate();
+		// dlg.GetPathName();	// 경로명 파일이름 확장자 등 다 넘김
+		// dlg.GetFileName();	// 파일 이름만 넘김
+		// dlg.GetFileExt();	// 파일 경로만 넘김
+		// dlg.GetFileTitle();	// 파일 확장자만 넘김
 	}
 }
 void CImageProc20191362View::LoadTwoImage2()
 {
-	/*
+	
 	CImageProc20191362Doc* pDoc = GetDocument();
 	CFile file;
 	CFileDialog dlg(TRUE);
@@ -550,7 +565,7 @@ void CImageProc20191362View::LoadTwoImage2()
 		pDoc->LoadSecondImageFile(ar);
 		file.Close();
 	}
-	*/
+	
 }
 
 void CImageProc20191362View::OnRegionSmoothing()
@@ -1659,7 +1674,6 @@ void CImageProc20191362View::OnGeometryWarping()
 			}
 		}
 	Invalidate();
-
 }
 
 
@@ -1705,8 +1719,6 @@ void CImageProc20191362View::OnLButtonUp(UINT nFlags, CPoint point)
 	mctrl_source.Qy = mpos_st.y;
 	mctrl_dest.Qx = mpos_end.x;
 	mctrl_dest.Qy = mpos_end.y;
-
-
 
 	CScrollView::OnLButtonUp(nFlags, point);
 }
@@ -1793,9 +1805,10 @@ void CImageProc20191362View::OnOpencv()
 #define NUM_FRAMES			10
 void CImageProc20191362View::OnGeometryMorphing()
 {
-	/*
+	
 	CImageProc20191362Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
+
 	control_line source_line[23] =
 	{ {116,7,207,5},{34,109,90,21},{55,249,30,128},{118,320,65,261},
 	 {123,321,171,321},{179,319,240,264},{247,251,282,135},{281,114,228,8},
@@ -1859,7 +1872,6 @@ void CImageProc20191362View::OnGeometryMorphing()
 			for (j = 0; j < pDoc->ImageHeight; j++)
 				free(pDoc->morphedImg[i][j]);
 			free(pDoc->morphedImg[i]);
-
 		}
 	}
 	for (i = 0; i < NUM_FRAMES; i++) {
@@ -1963,5 +1975,5 @@ void CImageProc20191362View::OnGeometryMorphing()
 				pDoc->morphedImg[frame - 1][y][x] = val;
 			}
 	}
-	Invalidate();*/
+	Invalidate();
 }
